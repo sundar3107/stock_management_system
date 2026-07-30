@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StockFlow | Purchase Management</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h2>StockFlow</h2>
+            <p>Inventory Management</p>
+        </div>
+
+        <nav>
+            <a href="dashboard.html" class="nav-link">
+                Dashboard
+            </a>
+
+            <a href="purchase.html" class="nav-link active">
+                Purchase
+            </a>
+
+            <a href="#" class="nav-link">
+                Add Item
+            </a>
+
+            <a href="#" class="nav-link">
+                Inventory
+            </a>
+
+            <a href="#" class="nav-link">
+                Suppliers
+            </a>
+
+            <a href="#" class="nav-link">
+                Reports
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button class="logout-btn">
+                Logout
+            </button>
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div>
+                <h1>Purchase Management</h1>
+                <p>Manage supplier purchases and incoming stock</p>
+            </div>
+
+            <button
+                class="primary-btn big-btn"
+                onclick="openPurchaseForm()">
+
+                + New Purchase
+
+            </button>
+
+        </header>
+
+
+        <!-- ================= SUMMARY ================= -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Total Purchases
+                </div>
+
+                <h2 id="purchaseCount">0</h2>
+
+                <span>Recorded purchases</span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Purchase Value
+                </div>
+
+                <h2 id="purchaseValue">₹0.00</h2>
+
+                <span>Total purchase value</span>
+
+            </div>
+
+
+            <div class="stat-card success-card">
+
+                <div class="stat-label">
+                    Completed
+                </div>
+
+                <h2 id="completedCount">0</h2>
+
+                <span>Paid purchases</span>
+
+            </div>
+
+
+            <div class="stat-card warning-card">
+
+                <div class="stat-label">
+                    Pending
+                </div>
+
+                <h2 id="pendingCount">0</h2>
+
+                <span>Pending payments</span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PURCHASE FORM ================= -->
+
+        <section
+            id="purchaseFormSection"
+            class="panel purchase-form-section hidden">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Create New Purchase</h2>
+                    <p>
+                        Enter supplier and product information.
+                        Invoice number is generated automatically.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    class="close-btn"
+                    onclick="closePurchaseForm()">
+
+                    &times;
+
+                </button>
+
+            </div>
+
+
+            <form
+                id="purchaseForm"
+                onsubmit="savePurchase(event)">
+
+
+                <!-- PURCHASE INFORMATION -->
+
+                <h3 class="form-title">
+                    Purchase Information
+                </h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>Purchase ID</label>
+
+                        <input
+                            type="text"
+                            id="purchaseId"
+                            readonly>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Invoice Number</label>
+
+                        <input
+                            type="text"
+                            id="invoiceNumber"
+                            readonly>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Purchase Date *</label>
+
+                        <input
+                            type="date"
+                            id="purchaseDate"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Supplier *</label>
+
+                        <select id="supplier" required>
+
+                            <option value="">
+                                Select Supplier
+                            </option>
+
+                            <option>
+                                ABC Distributors
+                            </option>
+
+                            <option>
+                                TechSource India
+                            </option>
+
+                            <option>
+                                Prime Supplies
+                            </option>
+
+                            <option>
+                                Global Traders
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCT DETAILS -->
+
+                <h3 class="form-title">
+                    Product Details
+                </h3>
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label>Product *</label>
+
+                        <select id="product" required>
+
+                            <option value="">
+                                Select Product
+                            </option>
+
+                            <option>
+                                Dell Wireless Mouse
+                            </option>
+
+                            <option>
+                                USB Keyboard
+                            </option>
+
+                            <option>
+                                A4 Paper
+                            </option>
+
+                            <option>
+                                USB Type-C Cable
+                            </option>
+
+                            <option>
+                                Laptop Stand
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Quantity *</label>
+
+                        <input
+                            type="number"
+                            id="quantity"
+                            min="1"
+                            placeholder="Enter quantity"
+                            oninput="calculateTotal()"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Unit Purchase Price (₹) *</label>
+
+                        <input
+                            type="number"
+                            id="unitPrice"
+                            min="0"
+                            step="0.01"
+                            placeholder="Enter unit price"
+                            oninput="calculateTotal()"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>GST (%)</label>
+
+                        <select
+                            id="tax"
+                            onchange="calculateTotal()">
+
+                            <option value="0">0%</option>
+                            <option value="5">5%</option>
+                            <option value="12">12%</option>
+                            <option value="18">18%</option>
+                            <option value="28">28%</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Batch Number</label>
+
+                        <input
+                            type="text"
+                            id="batchNumber"
+                            placeholder="Example: LOT-2026-001">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Expiry Date</label>
+
+                        <input
+                            type="date"
+                            id="expiryDate">
+
+                    </div>
+
+                </div>
+
+
+                <!-- PAYMENT -->
+
+                <h3 class="form-title">
+                    Payment Information
+                </h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>Payment Method *</label>
+
+                        <select
+                            id="paymentMethod"
+                            required>
+
+                            <option>Cash</option>
+                            <option>UPI</option>
+                            <option>Bank Transfer</option>
+                            <option>Credit</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Payment Status *</label>
+
+                        <select
+                            id="paymentStatus"
+                            required>
+
+                            <option>Paid</option>
+                            <option>Pending</option>
+                            <option>Partially Paid</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label>Notes</label>
+
+                        <textarea
+                            id="notes"
+                            placeholder="Enter optional purchase notes"></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TOTAL -->
+
+                <div class="purchase-total">
+
+                    <div>
+
+                        <span>Subtotal</span>
+
+                        <strong id="subtotal">
+                            ₹0.00
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>GST Amount</span>
+
+                        <strong id="taxAmount">
+                            ₹0.00
+                        </strong>
+
+                    </div>
+
+
+                    <div class="grand-total">
+
+                        <span>Grand Total</span>
+
+                        <strong id="grandTotal">
+                            ₹0.00
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FORM BUTTONS -->
+
+                <div class="form-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-btn"
+                        onclick="closePurchaseForm()">
+
+                        Cancel
+
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="primary-btn">
+
+                        Save & Generate Invoice
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- ================= PURCHASE HISTORY ================= -->
+
+        <section class="panel">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>Purchase History</h2>
+
+                    <p>
+                        All recorded supplier purchases
+                    </p>
+
+                </div>
+
+
+                <input
+                    class="search-box"
+                    type="text"
+                    id="purchaseSearch"
+                    placeholder="Search purchases..."
+                    oninput="searchPurchases()">
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table id="purchaseTable">
+
+                    <thead>
+
+                    <tr>
+
+                        <th>Purchase ID</th>
+
+                        <th>Invoice</th>
+
+                        <th>Date</th>
+
+                        <th>Supplier</th>
+
+                        <th>Product</th>
+
+                        <th>Qty</th>
+
+                        <th>Total</th>
+
+                        <th>Status</th>
+
+                        <th>Invoice</th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody id="purchaseTableBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- ================= INVOICE MODAL ================= -->
+
+<div
+    id="invoiceModal"
+    class="invoice-modal hidden">
+
+    <div class="invoice-window">
+
+        <div class="invoice-toolbar">
+
+            <h2>Purchase Invoice</h2>
+
+            <button
+                class="close-btn"
+                onclick="closeInvoice()">
+
+                &times;
+
+            </button>
+
+        </div>
+
+
+        <!-- PRINTABLE AREA -->
+
+        <div
+            id="invoiceContent"
+            class="invoice">
+
+            <div class="invoice-header">
+
+                <div>
+
+                    <h1>StockFlow</h1>
+
+                    <p>Inventory Management System</p>
+
+                </div>
+
+
+                <div class="invoice-title">
+
+                    <h2>INVOICE</h2>
+
+                    <strong id="invoiceDisplayNumber"></strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="invoice-divider"></div>
+
+
+            <div class="invoice-info-grid">
+
+                <div>
+
+                    <span>Purchase ID</span>
+
+                    <strong id="invoicePurchaseId"></strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>Purchase Date</span>
+
+                    <strong id="invoiceDate"></strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>Supplier</span>
+
+                    <strong id="invoiceSupplier"></strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>Payment Method</span>
+
+                    <strong id="invoicePaymentMethod"></strong>
+
+                </div>
+
+            </div>
+
+
+            <h3 class="invoice-section-title">
+                Product Details
+            </h3>
+
+
+            <table class="invoice-table">
+
+                <thead>
+
+                <tr>
+
+                    <th>Product</th>
+
+                    <th>Quantity</th>
+
+                    <th>Unit Price</th>
+
+                    <th>Amount</th>
+
+                </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                <tr>
+
+                    <td id="invoiceProduct"></td>
+
+                    <td id="invoiceQuantity"></td>
+
+                    <td id="invoiceUnitPrice"></td>
+
+                    <td id="invoiceProductTotal"></td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+
+            <div class="invoice-bottom">
+
+                <div class="invoice-extra">
+
+                    <p>
+                        <strong>Batch:</strong>
+                        <span id="invoiceBatch"></span>
+                    </p>
+
+                    <p>
+                        <strong>Payment Status:</strong>
+                        <span id="invoicePaymentStatus"></span>
+                    </p>
+
+                    <p>
+                        <strong>Notes:</strong>
+                        <span id="invoiceNotes"></span>
+                    </p>
+
+                </div>
+
+
+                <div class="invoice-totals">
+
+                    <div>
+
+                        <span>Subtotal</span>
+
+                        <strong id="invoiceSubtotal"></strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>GST</span>
+
+                        <strong id="invoiceTax"></strong>
+
+                    </div>
+
+
+                    <div class="invoice-grand-total">
+
+                        <span>Total</span>
+
+                        <strong id="invoiceTotal"></strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="invoice-footer">
+
+                <p>
+                    Thank you for your business.
+                </p>
+
+                <p>
+                    This invoice was generated automatically by StockFlow.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- INVOICE BUTTONS -->
+
+        <div class="invoice-actions">
+
+            <button
+                class="secondary-btn"
+                onclick="closeInvoice()">
+
+                Close
+
+            </button>
+
+
+            <button
+                class="primary-btn"
+                onclick="printInvoice()">
+
+                Print Invoice
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StockFlow | Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h2>StockFlow</h2>
+            <p>Inventory Management</p>
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html" class="nav-link active">
+                Dashboard
+            </a>
+
+            <a href="purchase.html" class="nav-link">
+                Purchase
+            </a>
+
+            <a href="#" class="nav-link">
+                Add Item
+            </a>
+
+            <a href="#" class="nav-link">
+                Inventory
+            </a>
+
+            <a href="#" class="nav-link">
+                Suppliers
+            </a>
+
+            <a href="#" class="nav-link">
+                Reports
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button class="logout-btn">
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+        <!-- ================= HEADER ================= -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>Dashboard</h1>
+
+                <p>
+                    Overview of your inventory and purchase activity
+                </p>
+
+            </div>
+
+
+            <div class="user-profile">
+
+                <div class="avatar">
+                    A
+                </div>
+
+                <div>
+
+                    <strong>Admin</strong>
+
+                    <p>
+                        Administrator
+                    </p>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="stats-grid">
+
+
+            <!-- TOTAL PRODUCTS -->
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Total Products
+                </div>
+
+                <h2 id="totalProducts">
+                    128
+                </h2>
+
+                <span>
+                    Products registered
+                </span>
+
+            </div>
+
+
+
+            <!-- TOTAL STOCK -->
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Total Stock
+                </div>
+
+                <h2 id="totalStock">
+                    4,820
+                </h2>
+
+                <span>
+                    Units currently available
+                </span>
+
+            </div>
+
+
+
+            <!-- LOW STOCK -->
+
+            <div class="stat-card warning-card">
+
+                <div class="stat-label">
+                    Low Stock
+                </div>
+
+                <h2 id="lowStock">
+                    8
+                </h2>
+
+                <span>
+                    Products need attention
+                </span>
+
+            </div>
+
+
+
+            <!-- INVENTORY VALUE -->
+
+            <div class="stat-card success-card">
+
+                <div class="stat-label">
+                    Inventory Value
+                </div>
+
+                <h2 id="inventoryValue">
+                    ₹8,45,200
+                </h2>
+
+                <span>
+                    Current stock value
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= QUICK ACTIONS ================= -->
+
+        <section class="panel">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>Quick Actions</h2>
+
+                    <p>
+                        Frequently used inventory operations
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="quick-actions">
+
+
+                <!-- ADD PRODUCT -->
+
+                <a href="#" class="action-card">
+
+                    <div class="action-icon">
+                        +
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Add Product
+                        </strong>
+
+                        <span>
+                            Register a new product
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- NEW PURCHASE -->
+
+                <a href="purchase.html" class="action-card">
+
+                    <div class="action-icon">
+                        +
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            New Purchase
+                        </strong>
+
+                        <span>
+                            Record incoming stock
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- INVENTORY -->
+
+                <a href="#" class="action-card">
+
+                    <div class="action-icon">
+                        →
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            View Inventory
+                        </strong>
+
+                        <span>
+                            Check current stock
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= PURCHASE SUMMARY ================= -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Total Purchases
+                </div>
+
+                <h2 id="dashboardPurchaseCount">
+                    0
+                </h2>
+
+                <span>
+                    Recorded purchases
+                </span>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Purchase Value
+                </div>
+
+                <h2 id="dashboardPurchaseValue">
+                    ₹0.00
+                </h2>
+
+                <span>
+                    Total purchase amount
+                </span>
+
+            </div>
+
+
+
+            <div class="stat-card success-card">
+
+                <div class="stat-label">
+                    Paid Purchases
+                </div>
+
+                <h2 id="dashboardPaidPurchases">
+                    0
+                </h2>
+
+                <span>
+                    Payment completed
+                </span>
+
+            </div>
+
+
+
+            <div class="stat-card warning-card">
+
+                <div class="stat-label">
+                    Pending Payments
+                </div>
+
+                <h2 id="dashboardPendingPurchases">
+                    0
+                </h2>
+
+                <span>
+                    Require payment
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= TWO COLUMN SECTION ================= -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- ================= RECENT PURCHASES ================= -->
+
+            <div class="panel">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            Recent Purchases
+                        </h2>
+
+                        <p>
+                            Latest supplier purchase transactions
+                        </p>
+
+                    </div>
+
+
+                    <a href="purchase.html">
+                        View All
+                    </a>
+
+                </div>
+
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                        <tr>
+
+                            <th>
+                                Invoice
+                            </th>
+
+                            <th>
+                                Supplier
+                            </th>
+
+                            <th>
+                                Product
+                            </th>
+
+                            <th>
+                                Amount
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody id="dashboardRecentPurchases">
+
+
+                        <!-- SAMPLE PURCHASE -->
+
+
+                        <tr>
+
+                            <td>
+                                INV-2026-1003
+                            </td>
+
+                            <td>
+                                Prime Supplies
+                            </td>
+
+                            <td>
+                                A4 Paper
+                            </td>
+
+                            <td>
+                                ₹12,400
+                            </td>
+
+                            <td>
+
+                                <span class="status completed">
+
+                                    Paid
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td>
+                                INV-2026-1002
+                            </td>
+
+                            <td>
+                                TechSource India
+                            </td>
+
+                            <td>
+                                USB Keyboard
+                            </td>
+
+                            <td>
+                                ₹48,500
+                            </td>
+
+                            <td>
+
+                                <span class="status pending">
+
+                                    Pending
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td>
+                                INV-2026-1001
+                            </td>
+
+                            <td>
+                                ABC Distributors
+                            </td>
+
+                            <td>
+                                Dell Wireless Mouse
+                            </td>
+
+                            <td>
+                                ₹31,000
+                            </td>
+
+                            <td>
+
+                                <span class="status completed">
+
+                                    Paid
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= LOW STOCK ================= -->
+
+            <div class="panel">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            Low Stock Alert
+                        </h2>
+
+                        <p>
+                            Products requiring restocking
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stock-alert">
+
+                    <div>
+
+                        <strong>
+                            Dell Wireless Mouse
+                        </strong>
+
+                        <p>
+                            Electronics
+                        </p>
+
+                    </div>
+
+                    <span>
+                        8 left
+                    </span>
+
+                </div>
+
+
+
+                <div class="stock-alert">
+
+                    <div>
+
+                        <strong>
+                            A4 Paper
+                        </strong>
+
+                        <p>
+                            Stationery
+                        </p>
+
+                    </div>
+
+                    <span>
+                        5 left
+                    </span>
+
+                </div>
+
+
+
+                <div class="stock-alert">
+
+                    <div>
+
+                        <strong>
+                            USB Keyboard
+                        </strong>
+
+                        <p>
+                            Electronics
+                        </p>
+
+                    </div>
+
+                    <span>
+                        3 left
+                    </span>
+
+                </div>
+
+
+
+                <div class="stock-alert">
+
+                    <div>
+
+                        <strong>
+                            USB Type-C Cable
+                        </strong>
+
+                        <p>
+                            Accessories
+                        </p>
+
+                    </div>
+
+                    <span>
+                        6 left
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= STOCK BY CATEGORY ================= -->
+
+        <section class="panel">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Stock by Category
+                    </h2>
+
+                    <p>
+                        Current inventory distribution
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="category-grid">
+
+
+                <div class="category-card">
+
+                    <strong>
+                        Electronics
+                    </strong>
+
+                    <h3>
+                        1,250
+                    </h3>
+
+                    <p>
+                        42 products
+                    </p>
+
+                </div>
+
+
+
+                <div class="category-card">
+
+                    <strong>
+                        Stationery
+                    </strong>
+
+                    <h3>
+                        1,840
+                    </h3>
+
+                    <p>
+                        31 products
+                    </p>
+
+                </div>
+
+
+
+                <div class="category-card">
+
+                    <strong>
+                        Accessories
+                    </strong>
+
+                    <h3>
+                        980
+                    </h3>
+
+                    <p>
+                        28 products
+                    </p>
+
+                </div>
+
+
+
+                <div class="category-card">
+
+                    <strong>
+                        Others
+                    </strong>
+
+                    <h3>
+                        750
+                    </h3>
+
+                    <p>
+                        27 products
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<script src="script.js"></script>
+
+
+<!-- ================= DASHBOARD SCRIPT ================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadDashboardPurchases();
+
+    }
+);
+
+
+function loadDashboardPurchases() {
+
+    const savedPurchases =
+        localStorage.getItem(
+            "stockflowPurchases"
+        );
+
+
+    if (!savedPurchases) {
+
+        return;
+
+    }
+
+
+    let purchases;
+
+
+    try {
+
+        purchases =
+            JSON.parse(
+                savedPurchases
+            );
+
+    } catch (error) {
+
+        console.error(
+            "Could not load purchase data.",
+            error
+        );
+
+        return;
+
+    }
+
+
+    if (!Array.isArray(purchases)) {
+
+        return;
+
+    }
+
+
+    /* TOTAL PURCHASE COUNT */
+
+    const countElement =
+        document.getElementById(
+            "dashboardPurchaseCount"
+        );
+
+
+    if (countElement) {
+
+        countElement.textContent =
+            purchases.length;
+
+    }
+
+
+
+    /* PURCHASE VALUE */
+
+    const totalValue =
+        purchases.reduce(
+            function (total, purchase) {
+
+                return total +
+                    Number(
+                        purchase.total || 0
+                    );
+
+            },
+            0
+        );
+
+
+    const valueElement =
+        document.getElementById(
+            "dashboardPurchaseValue"
+        );
+
+
+    if (valueElement) {
+
+        valueElement.textContent =
+            formatDashboardMoney(
+                totalValue
+            );
+
+    }
+
+
+
+    /* PAID PURCHASES */
+
+    const paidPurchases =
+        purchases.filter(
+            function (purchase) {
+
+                return (
+                    purchase.paymentStatus ===
+                    "Paid"
+                );
+
+            }
+        ).length;
+
+
+    const paidElement =
+        document.getElementById(
+            "dashboardPaidPurchases"
+        );
+
+
+    if (paidElement) {
+
+        paidElement.textContent =
+            paidPurchases;
+
+    }
+
+
+
+    /* PENDING PURCHASES */
+
+    const pendingPurchases =
+        purchases.filter(
+            function (purchase) {
+
+                return (
+                    purchase.paymentStatus !==
+                    "Paid"
+                );
+
+            }
+        ).length;
+
+
+    const pendingElement =
+        document.getElementById(
+            "dashboardPendingPurchases"
+        );
+
+
+    if (pendingElement) {
+
+        pendingElement.textContent =
+            pendingPurchases;
+
+    }
+
+
+
+    /* RECENT PURCHASES */
+
+    renderDashboardPurchases(
+        purchases
+    );
+
+}
+
+
+
+function renderDashboardPurchases(
+    purchases
+) {
+
+    const tableBody =
+        document.getElementById(
+            "dashboardRecentPurchases"
+        );
+
+
+    if (!tableBody) {
+
+        return;
+
+    }
+
+
+    tableBody.innerHTML = "";
+
+
+    const recentPurchases =
+        [...purchases]
+            .reverse()
+            .slice(0, 5);
+
+
+
+    recentPurchases.forEach(
+        function (purchase) {
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            let statusClass =
+                "pending";
+
+
+            if (
+                purchase.paymentStatus ===
+                "Paid"
+            ) {
+
+                statusClass =
+                    "completed";
+
+            }
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${escapeDashboardHtml(
+                        purchase.invoiceNumber
+                    )}
+                </td>
+
+                <td>
+                    ${escapeDashboardHtml(
+                        purchase.supplier
+                    )}
+                </td>
+
+                <td>
+                    ${escapeDashboardHtml(
+                        purchase.product
+                    )}
+                </td>
+
+                <td>
+                    <strong>
+                        ${formatDashboardMoney(
+                            Number(
+                                purchase.total || 0
+                            )
+                        )}
+                    </strong>
+                </td>
+
+                <td>
+
+                    <span
+                        class="status ${statusClass}">
+
+                        ${escapeDashboardHtml(
+                            purchase.paymentStatus
+                        )}
+
+                    </span>
+
+                </td>
+
+            `;
+
+
+            tableBody.appendChild(
+                row
+            );
+
+        }
+    );
+
+}
+
+
+
+function formatDashboardMoney(
+    amount
+) {
+
+    return new Intl.NumberFormat(
+        "en-IN",
+        {
+
+            style: "currency",
+
+            currency: "INR"
+
+        }
+    ).format(amount);
+
+}
+
+
+
+function escapeDashboardHtml(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+</script>
+
+
+</body>
+
+</html>
