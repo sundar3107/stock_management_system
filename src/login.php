@@ -34,11 +34,12 @@ return $formName === $activeForm ? 'active' : '';
           <form action="login_register.php" method="post">
             <h2 class="login-label">Login to StockIT</h2>
             <?= showError($errors['login']); ?>
-            <input type="email" name="email" placeholder="Email" required>
+            <input type="email" name="email" placeholder="EMAIL" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit" name="login"> Login></button>
             <p class="dont-have-acc">Don't have an account? <a class="register-link" href="#" onclick="showForm('Register-form');">Register</a></p>
           </form>
+
 
         </div>
       <div class="form-box  <?= isActiveForm('Register',$activeForm); ?> " id="Register-form">
